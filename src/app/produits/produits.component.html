@@ -1,29 +1,33 @@
 <!-- Recherche de Produits -->
 <br>
-<div class="search-container">
-  <h1>Chercher un produit </h1>
-  <form #rechercheForm="ngForm" (ngSubmit)="rechercherParCategorie()">
-    <table>
-      <tr>
-        <td><label for="categorie">Catégorie:</label></td>
-        <td>
-          <select id="categorie" name="categorieFiltre" class="form-control" [(ngModel)]="categorieFiltre"
-            (ngModelChange)="rechercherParCategorie()">
-            <option value="" selected>Toutes les catégories</option>
-            <option *ngFor="let cat of categories" [ngValue]="cat.id">{{ cat.libelle }}</option>
-          </select>
-        </td>
-        <td>
-          <button type="submit" class="btn btn-primary" (click)="rechercherParCategorie()">Chercher</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-danger" (click)="annulerRecherche()">Annuler</button>
-        </td>
-      </tr>
-    </table>
-  </form>
-  
-</div>
+<table>
+  <tr>
+    <td>
+      <h1>Cherche un produit</h1>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <form #rechercheForm="ngForm" (ngSubmit)="rechercherParCategorie()">
+        <div class="form-group">
+          <label for="categorie">Catégorie:</label>
+          <div class="input-group">
+            <select id="categorie" name="categorieFiltre" class="bi bi-search" [(ngModel)]="categorieFiltre">
+              <option value="" selected>Toutes les catégories</option>
+              <option *ngFor="let cat of categories" [ngValue]="cat.id">{{ cat.libelle }}</option>
+            </select>
+            &nbsp;
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" (click)="lancerRecherche()">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </td>
+  </tr>
+</table>
 
 <!-- Fiche Produit -->
 <div *ngIf="editMode" class="product-form">

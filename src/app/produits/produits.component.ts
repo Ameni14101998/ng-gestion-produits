@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { ProduitsService } from '../services/produits.service';
 import { Categorie } from '../model/Categorie';
- 
+
 @Component({
   selector: 'app-produits',
   templateUrl: './produits.component.html',
@@ -16,7 +16,7 @@ export class ProduitsComponent implements OnInit {
   produitCourant = new Produit();
   categorieFiltre: number | undefined;
   editMode: boolean = false; 
-
+  
   constructor(private produitsService: ProduitsService , private categoriesService : CategoriesService) {}
 
   ngOnInit(): void {
@@ -24,7 +24,10 @@ export class ProduitsComponent implements OnInit {
     this.consulterProduits();
     this.consulterCategories();
   }
- 
+  lancerRecherche() {
+    this.rechercherParCategorie();
+  } 
+  
   rechercherParCategorie() {
     if (this.categorieFiltre !== undefined) {
       this.produitsService.getProduitsParCategorie(this.categorieFiltre).subscribe({
@@ -36,6 +39,7 @@ export class ProduitsComponent implements OnInit {
         }
       });
     } else {
+      // Si aucune catégorie n'est sélectionnée, afficher tous les produits
       this.consulterProduits();
     }
   }
@@ -138,10 +142,5 @@ export class ProduitsComponent implements OnInit {
         console.error("Erreur lors de la récupération des catégories :", err);
       }
     });
-  }
-
-  annulerRecherche() {
-    this.categorieFiltre = undefined;
-    this.consulterProduits();
   }
 }

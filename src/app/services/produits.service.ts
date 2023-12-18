@@ -9,24 +9,25 @@ import { Produit } from '../model/produit';
 export class ProduitsService {
   // Url du service web de gestion de produits
   // commune pour toutes les méthodes
-  urlHote = "http://localhost:3333/produits/";
+  urlHote="http://localhost:3333/produits/";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http :HttpClient){ }
 
   getProduits(): Observable<Array<Produit>> {
     return this.http.get<Array<Produit>>(this.urlHote);
   }
 
-  deleteProduit(idP: number | undefined): Observable<void> {
-    return this.http.delete<void>(this.urlHote + idP);
+  deleteProduit(idP: number | undefined): Observable<any> {
+    return this.http.delete(`${this.urlHote}${idP}`);
   }
 
-  addProduit(nouveau: Produit): Observable<Array<Produit>> {
-    return this.http.post<Array<Produit>>(this.urlHote, nouveau);
+  addProduit(nouveau: Produit): Observable<Produit> {
+    return this.http.post<Produit>(this.urlHote, nouveau);
   }
 
-  updateProduit(idP: number | undefined, nouveau: Produit): Observable<void> {
-    return this.http.put<void>(this.urlHote + idP, nouveau);
+  updateProduit(idP: number | undefined, nouveau: Produit)
+ {
+    return this.http.put(this.urlHote+idP,nouveau);
   }
   
   getProduitsParCategorie(categorieId: number): Observable<Produit[]> {
